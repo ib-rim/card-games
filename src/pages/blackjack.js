@@ -9,8 +9,8 @@ export default function Blackjack() {
 
     const [hand, setHand] = useState([]);
 
-    const [handValue1, setHandValue1] = useState(0);
-    const [handValue2, setHandValue2] = useState(0);
+    const [minHandValue, setMinHandValue] = useState(0);
+    const [maxHandValue, setMaxHandValue] = useState(0);
 
     const [showOptions, setShowOptions] = useState(true);
     const [showValue, setShowValue] = useState(false);
@@ -67,27 +67,27 @@ export default function Blackjack() {
 
     // Evaluate value of hand 
     function evaluateHand() {
-        let totalValue1 = 0; // All Aces are 1s
-        let totalValue2 = 0; // 1 Ace is 11
+        let minValue = 0; // All Aces are 1s
+        let maxValue = 0; // 1 Ace is 11
 
         // Add values of each card in hand
         for (let i = 0; i < hand.length; i++) {
             let rank = hand[i].props.rank;
             let value = rankToValue(rank);
-            totalValue1 += value;
+            minValue += value;
             if (rank === "A") {
                 // Limit of one 11 value Ace per hand
-                totalValue2 = totalValue1 + 10;
+                maxValue = minValue + 10;
             }
             else {
-                totalValue2 += value;
+                maxValue += value;
             }
         }
 
-        setHandValue1(totalValue1);
-        setHandValue2(totalValue2);
+        setMinHandValue(minValue);
+        setMaxHandValue(maxValue);
 
-        if (totalValue1 > 21) {
+        if (minValue > 21) {
             endGame();
         }
     }
@@ -129,13 +129,13 @@ export default function Blackjack() {
             <div className={styles.hand}>
                 {hand}
             </div>
-            {showValue ?
-                    (handValue1 <= 21 && handValue2 <= 21) ?
-                        <div className={styles.value}>Value: {handValue2}</div> // Both under or equal to 21
+            {showValue ? //Display value that favours player
+                    (minHandValue <= 21 && maxHandValue <= 21) ?
+                        <div className={styles.value}>Value: {maxHandValue}</div> // Both under or equal to 21
                         :
-                        handValue1 > 21 ? 
-                        <div className={styles.value} status={"bust"}>Bust: {handValue1}</div> // Both over 21
-                        : <div className={styles.value}>Value: {handValue1}</div> // Value1 under and value2 over
+                        minHandValue > 21 ? 
+                        <div className={styles.value} status={"bust"}>Bust: {minHandValue}</div> // Both over 21
+                        : <div className={styles.value}>Value: {minHandValue}</div> // minHandValue under and maxHandValue over
                 :
                 <></>}
             {showOptions ?
