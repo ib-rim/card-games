@@ -21,24 +21,23 @@ export default function Blackjack() {
 
     function resetGame() {
         let deckCards = [];
-        let numSuits = 4;
-        let numRanks = 13;
-        let numCards = numSuits * numRanks;
+        let suits = ["♠", "♥", "♦", "♣"];
+        let ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+        let numCards = suits.length * ranks.length;
         let hand = [];
 
-        for (let i = 0; i < numSuits; i++) {
-            for (let j = 0; j < numRanks; j++) {
-                let suit = i + 1;
-                let rank = j + 1;
-                deckCards.push(<Card key={rank + suit} suit={suit} rank={rank} />);
+        for (let i = 0; i < suits.length; i++) {
+            for (let j = 0; j < ranks.length; j++) {
+                let suit = suits[i];
+                let rank = ranks[j];
+                deckCards.push(<Card key={rank +' '+ suit} suit={suit} rank={rank} />);
             }
         }
-
         let index = Math.floor(Math.random() * (numCards - 2));
         let card = deckCards.splice(index, 1)[0];
         numCards -= 1;
         hand.push(card);
-
+        
         index = Math.floor(Math.random() * (numCards - 2));
         card = deckCards.splice(index, 1)[0];
         numCards -= 1;
