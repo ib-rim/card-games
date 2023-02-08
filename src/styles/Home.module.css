@@ -1,3 +1,45 @@
+.main {
+    background-color: #076407;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 
+.heading {
+    color: whitesmoke;
+    text-align: center;
+    padding-block: 0.5em;
+}
 
+.navigation {
+    background-color: #113d11;
+    padding-block: 2em;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2em;
+}
 
+.navigationLink:hover>*:not(.navigationLinkText) {
+    outline: 4px solid gold;
+}
+
+.blackjack:has(:nth-child(n):hover)>* {
+    outline: 4px solid gold;
+}
+
+.blackjack {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 50px);
+}
+
+.blackjack>*:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.navigationLinkText {
+    font-size: 2rem;
+    font-weight: bold;
+    color: gold;
+    text-align: center;
+}
