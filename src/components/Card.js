@@ -1,4 +1,4 @@
-import styles from '@/styles/blackjack.module.css';
+import styles from '@/styles/card.module.css';
 import { useState} from 'react';
 
 export default function Card(props) {

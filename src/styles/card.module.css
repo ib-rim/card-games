@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'zen-antique';
+    src: url('../assets/fonts/ZenAntiqueSoft-Regular.ttf');
+}
+
+.card {
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    width: 150px;
+    background-color: white;
+    box-shadow: -3px 5px 1px 3px rgba(0, 0, 0, 0.2);
+    font-size: 2em;
+    font-family: 'zen-antique';
+}
+
+.rank,
+.suit {
+    width: 25%;
+    text-align: center;
+    flex: 1;
+    margin-inline: 5px;
+}
+
+.suit {
+    margin-top: -30px;
+}
+
+.rank[location="bottom-right"],
+.suit[location="bottom-right"] {
+    align-self: flex-end;
+    transform: rotate(180deg);
+}
+
+.suit[suit='♦'],
+.suit[suit='♥'] {
+    color: red;
+}
+
+/* VALUE */
+
+.value {
+    color: gold;
+    font-weight: bold;
+    font-size: 2.5rem;
+    text-shadow: 1px 1px 5px black;
+}
+
+.value[status="bust"] {
+    color: red;
+}
