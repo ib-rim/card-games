@@ -73,14 +73,14 @@ export default function Blackjack() {
         // Add values of each card in hand
         for (let i = 0; i < hand.length; i++) {
             let rank = hand[i].props.rank;
+            let value = rankToValue(rank);
+            totalValue1 += value;
             if (rank === "A") {
-                totalValue1 += 1;
                 // Limit of one 11 value Ace per hand
                 totalValue2 = totalValue1 + 10;
             }
             else {
-                totalValue1 += rankToValue(rank);
-                totalValue2 += rankToValue(rank);
+                totalValue2 += value;
             }
         }
 
@@ -110,10 +110,13 @@ export default function Blackjack() {
         return card;
     }
 
-    // Rank: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K
-    // Value: Integer between 2 and 10 inclusive
+    // Rank: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K
+    // Value: Integer between 1 and 10 inclusive
     function rankToValue(rank) {
-        if (rank >= 2 && rank <= 10) {
+        if (rank === "A") {
+            return 1;
+        }
+        else if (rank >= 2 && rank <= 10) {
             return parseInt(rank);
         }
         else if (rank === "J" || rank === "Q" || rank === "K") {
