@@ -28,8 +28,8 @@ export default function Blackjack() {
 
         for (let i = 0; i < numSuits; i++) {
             for (let j = 0; j < numRanks; j++) {
-                let suit = numToSuit(i + 1);
-                let rank = numToRank(j + 1);
+                let suit = i + 1;
+                let rank = j + 1;
                 deckCards.push(<Card key={rank + suit} suit={suit} rank={rank} />);
             }
         }
@@ -85,10 +85,6 @@ export default function Blackjack() {
             }
         }
 
-
-        console.log(totalValue1);
-        console.log(totalValue2);
-
         setHandValue1(totalValue1);
         setHandValue2(totalValue2);
 
@@ -113,43 +109,6 @@ export default function Blackjack() {
         setDeck(cards);
         setDeckSize(numCards - 1);
         return card;
-    }
-
-    // Num: Integer between 1 and 4 inclusive
-    // Suit: ♠, ♥, ♦, ♣
-    function numToSuit(num) {
-        if (num == 1) {
-            return "♠";
-        }
-        else if (num == 2) {
-            return "♥";
-        }
-        else if (num == 3) {
-            return "♦";
-        }
-        else if (num == 4) {
-            return "♣";
-        }
-    }
-
-    // Num: Integer between 1 and 13 inclusive
-    // Rank: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K
-    function numToRank(num) {
-        if (num == 1) {
-            return "A";
-        }
-        else if (num >= 2 && num <= 10) {
-            return num;
-        }
-        else if (num == 11) {
-            return "J";
-        }
-        else if (num == 12) {
-            return "Q";
-        }
-        else if (num == 13) {
-            return "K";
-        }
     }
 
     // Rank: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K
