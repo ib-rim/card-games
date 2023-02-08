@@ -124,20 +124,29 @@ export default function Blackjack() {
         }
     }
 
+    //Display value that favours player
+    function displayValue() {
+        // Default: show lower value if minHandValue under and maxHandValue over
+        let text = 'Value';
+        let value = minHandValue;
+
+        // Show higher value if both under or equal to 21
+        if (minHandValue <= 21 && maxHandValue <= 21) { 
+            value = maxHandValue;
+        }
+        // Show lower value if both over 21
+        else if (minHandValue > 21) { 
+            text = 'Bust';
+        }  
+        return <div className={styles.value} status={text.toLowerCase()}>{text}: {value}</div>; 
+    }
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.hand}>
                 {hand}
             </div>
-            {showValue ? //Display value that favours player
-                    (minHandValue <= 21 && maxHandValue <= 21) ?
-                        <div className={styles.value}>Value: {maxHandValue}</div> // Both under or equal to 21
-                        :
-                        minHandValue > 21 ? 
-                        <div className={styles.value} status={"bust"}>Bust: {minHandValue}</div> // Both over 21
-                        : <div className={styles.value}>Value: {minHandValue}</div> // minHandValue under and maxHandValue over
-                :
-                <></>}
+            {showValue ? displayValue() : <></>}
             {showOptions ?
                 <div className={styles.options}>
                     <button onClick={() => hit()} className={styles.btn} type={"hit"}>Hit</button>
