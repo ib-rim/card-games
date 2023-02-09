@@ -1,6 +1,7 @@
 import styles from '@/styles/blackjack.module.css';
 import { useState, useEffect } from 'react';
-import {Deck} from '@/classes/Deck';
+import { Deck } from '@/classes/Deck';
+import PageWrapper from '@/components/PageWrapper';
 
 export default function Blackjack() {
 
@@ -101,30 +102,32 @@ export default function Blackjack() {
         let value = minHandValue;
 
         // Show higher value if both under or equal to 21
-        if (minHandValue <= 21 && maxHandValue <= 21) { 
+        if (minHandValue <= 21 && maxHandValue <= 21) {
             value = maxHandValue;
         }
         // Show lower value if both over 21
-        else if (minHandValue > 21) { 
+        else if (minHandValue > 21) {
             text = 'Bust';
-        }  
-        return <div className={styles.value} status={text.toLowerCase()}>{text}: {value}</div>; 
+        }
+        return <div className={styles.value} status={text.toLowerCase()}>{text}: {value}</div>;
     }
 
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.hand}>
-                {hand}
-            </div>
-            {showValue ? displayValue() : <></>}
-            {showOptions ?
-                <div className={styles.options}>
-                    <button onClick={() => hit()} className={styles.btn} type={"hit"}>Hit</button>
-                    <button onClick={() => stand()} className={styles.btn} type={"stand"}>Stand</button>
+        <PageWrapper subtitle="Blackjack">
+            <main className={styles.main}>
+                <div className={styles.hand}>
+                    {hand}
                 </div>
-                :
-                <></>}
-            <button onClick={() => resetGame()} className={styles.btn} type={"reset"}>Reset</button>
-        </div>
+                {showValue ? displayValue() : <></>}
+                {showOptions ?
+                    <div className={styles.options}>
+                        <button onClick={() => hit()} className={styles.btn} type={"hit"}>Hit</button>
+                        <button onClick={() => stand()} className={styles.btn} type={"stand"}>Stand</button>
+                    </div>
+                    :
+                    <></>}
+                <button onClick={() => resetGame()} className={styles.btn} type={"reset"}>Reset</button>
+            </main>
+        </PageWrapper>
     )
 }
