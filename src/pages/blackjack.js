@@ -1,14 +1,12 @@
 import styles from '@/styles/blackjack.module.css';
 import { useState, useEffect } from 'react';
-import Card from '@/components/Card';
+import {Deck} from '@/classes/Deck';
 
 export default function Blackjack() {
 
     const [deck, setDeck] = useState([]);
-    const [deckSize, setDeckSize] = useState(0); //Number of cards not in play
 
     const [hand, setHand] = useState([]);
-
     const [minHandValue, setMinHandValue] = useState(0);
     const [maxHandValue, setMaxHandValue] = useState(0);
 
@@ -20,33 +18,17 @@ export default function Blackjack() {
     }, []);
 
     function resetGame() {
-        let deckCards = [];
-        let suits = ["♠", "♥", "♦", "♣"];
-        let ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-        let numCards = suits.length * ranks.length;
+        //Reset deck
+        let deck = new Deck();
+        setDeck(deck);
+
+        //Reset hand
         let hand = [];
-
-        for (let i = 0; i < suits.length; i++) {
-            for (let j = 0; j < ranks.length; j++) {
-                let suit = suits[i];
-                let rank = ranks[j];
-                deckCards.push(<Card key={rank +' '+ suit} suit={suit} rank={rank} />);
-            }
-        }
-        let index = Math.floor(Math.random() * (numCards - 2));
-        let card = deckCards.splice(index, 1)[0];
-        numCards -= 1;
-        hand.push(card);
-        
-        index = Math.floor(Math.random() * (numCards - 2));
-        card = deckCards.splice(index, 1)[0];
-        numCards -= 1;
-        hand.push(card);
-
+        hand.push(deck.getRandomCard());
+        hand.push(deck.getRandomCard());
         setHand(hand);
-        setDeckSize(numCards);
-        setDeck(deckCards);
 
+        //Reset UI
         setShowOptions(true);
         setShowValue(false);
     }
@@ -54,7 +36,7 @@ export default function Blackjack() {
     // Add new card to hand then evaluate
     function hit() {
         let handCards = hand;
-        handCards.push(getRandomCard());
+        handCards.push(deck.getRandomCard());
         setHand(handCards);
         evaluateHand();
     }
@@ -96,18 +78,6 @@ export default function Blackjack() {
     function endGame() {
         setShowOptions(false);
         setShowValue(true);
-    }
-
-    //Get random card from deck
-    function getRandomCard() {
-        let cards = deck;
-        let numCards = deckSize;
-
-        let index = Math.floor(Math.random() * (numCards - 2));
-        let card = cards.splice(index, 1)[0];
-        setDeck(cards);
-        setDeckSize(numCards - 1);
-        return card;
     }
 
     // Rank: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K
