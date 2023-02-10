@@ -13,7 +13,7 @@ export default function Navigation() {
         <>
             <nav className={styles.navigation}>
                 <Link href="/" className={styles.navigationLink} type="home">
-                    <Image src={logo} width="110" height="55"></Image>
+                    <Image src={logo} width="110" height="55" alt="Card Games Logo"></Image>
                 </Link>
                 {currentRoute !== "/" ?
                     <>
